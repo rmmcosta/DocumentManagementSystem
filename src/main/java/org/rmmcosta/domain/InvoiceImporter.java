@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class InvoiceImporter implements Importer {
     private static final String AMOUNT_LABEL = "Amount:";
@@ -33,12 +34,12 @@ public class InvoiceImporter implements Importer {
     }
 
     private String parseInvoiceAmount(String text) {
-        return Parser.parseValueByLabel(text, AMOUNT_LABEL, NEW_LINE)
+        return Parser.parseValueByLabel(text, AMOUNT_LABEL, Optional.of(NEW_LINE))
                 .replace(MONEY_SYMBOL, ' ')
                 .trim();
     }
 
     private String parseInvoicePatient(String text) {
-        return Parser.parseValueByLabel(text, PATIENT_LABEL, NEW_LINE);
+        return Parser.parseValueByLabel(text, PATIENT_LABEL, Optional.of(NEW_LINE));
     }
 }

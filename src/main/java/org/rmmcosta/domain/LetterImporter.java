@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class LetterImporter implements Importer {
 
@@ -29,14 +30,14 @@ public class LetterImporter implements Importer {
     }
 
     private String parseLetterPatient(String text) {
-        return Parser.parseValueByLabel(text, "Dear", System.lineSeparator());
+        return Parser.parseValueByLabel(text, "Dear", Optional.ofNullable(System.lineSeparator()));
     }
 
     private String parseLetterAddress(String text) {
-        return Parser.parseValueByLabel(text, System.lineSeparator()+System.lineSeparator(),0, System.lineSeparator()+System.lineSeparator());
+        return Parser.parseValueByLabel(text, System.lineSeparator()+System.lineSeparator(),0, Optional.of(System.lineSeparator() + System.lineSeparator()));
     }
 
     private String parseLetterBody(String text) {
-        return Parser.parseValueByLabel(text, System.lineSeparator()+System.lineSeparator(), 1, "regards,");
+        return Parser.parseValueByLabel(text, System.lineSeparator()+System.lineSeparator(), 1, Optional.of("regards,"));
     }
 }

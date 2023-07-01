@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,21 +32,21 @@ class ParserTest {
 
     @Test
     void shouldParseBasedOnLabel() {
-        assertEquals("Coiso", Parser.parseValueByLabel(text, "1st: ", System.lineSeparator()));
+        assertEquals("Coiso", Parser.parseValueByLabel(text, "1st: ", Optional.ofNullable(System.lineSeparator())));
     }
 
     @Test
     void shouldParseBasedOnCharsPattern() {
-        assertEquals("Cenas", Parser.parseValueByLabel(text, System.lineSeparator() + System.lineSeparator(), System.lineSeparator() + System.lineSeparator()));
+        assertEquals("Cenas", Parser.parseValueByLabel(text, System.lineSeparator() + System.lineSeparator(), Optional.of(System.lineSeparator() + System.lineSeparator())));
     }
 
     @Test
     void shouldParseTextFile() throws IOException {
         File file = new File("src/test/resources/JoeBloggs26082023.letter");
         String fileContent = FileUtils.getFileContent(file);
-        assertEquals("123 Fake Street", Parser.parseValueByLabel(fileContent, System.lineSeparator(), 1, System.lineSeparator()));
+        assertEquals("123 Fake Street", Parser.parseValueByLabel(fileContent, System.lineSeparator(), 1, Optional.ofNullable(System.lineSeparator())));
         String expectedAddress = "123 Fake Street" + System.lineSeparator() + "Westminster" + System.lineSeparator() + "London" + System.lineSeparator() + "United Kingdom";
-        assertEquals(expectedAddress, Parser.parseValueByLabel(fileContent, System.lineSeparator(), 1, System.lineSeparator() + System.lineSeparator()));
+        assertEquals(expectedAddress, Parser.parseValueByLabel(fileContent, System.lineSeparator(), 1, Optional.of(System.lineSeparator() + System.lineSeparator())));
     }
 
 }

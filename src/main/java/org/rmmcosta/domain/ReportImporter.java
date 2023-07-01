@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class ReportImporter implements Importer {
     @Override
@@ -20,10 +21,10 @@ public class ReportImporter implements Importer {
     }
 
     private String parseReportPatient(String text) {
-        return Parser.parseValueByLabel(text, "Patient:", System.lineSeparator());
+        return Parser.parseValueByLabel(text, "Patient:", Optional.ofNullable(System.lineSeparator()));
     }
 
     private String parseReportBody(String text) {
-        return Parser.parseValueByLabel(text, System.lineSeparator() + System.lineSeparator(), "");
+        return Parser.parseValueByLabel(text, System.lineSeparator() + System.lineSeparator(),Optional.empty());
     }
 }

@@ -1,11 +1,13 @@
 package org.rmmcosta.utils;
 
+import java.util.Optional;
+
 public class Parser {
-    public static String parseValueByLabel(String text, String label, String endPattern) {
+    public static String parseValueByLabel(String text, String label, Optional<String> endPattern) {
         return parseValueByIndex(text, findIndex(text, label, 0) + label.length(), endPattern);
     }
 
-    public static String parseValueByLabel(String text, String label, int skipTimes, String endPattern) {
+    public static String parseValueByLabel(String text, String label, int skipTimes, Optional<String> endPattern) {
         return parseValueByIndex(text, findIndex(text, label, skipTimes) + label.length(), endPattern);
     }
 
@@ -18,8 +20,8 @@ public class Parser {
         return text.indexOf(label, afterLabelIndex);
     }
 
-    private static String parseValueByIndex(String text, int startIndex, String endPattern) {
-        int endPatternIndex = endPattern.isEmpty() ? text.length() : text.indexOf(endPattern, startIndex);
+    private static String parseValueByIndex(String text, int startIndex, Optional<String> endPattern) {
+        int endPatternIndex = endPattern.map(s -> text.indexOf(s, startIndex)).orElseGet(text::length);
         return text.substring(startIndex, endPatternIndex)
                 .trim();
     }
