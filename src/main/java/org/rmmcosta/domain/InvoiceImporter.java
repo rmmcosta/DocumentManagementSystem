@@ -21,15 +21,14 @@ public class InvoiceImporter implements Importer {
         }
 
         final Map<String, String> invoiceAttributes = new HashMap<>();
-        invoiceAttributes.put("TYPE", String.valueOf(SupportedTypes.INVOICE));
+        invoiceAttributes.put(Attributes.TYPE, String.valueOf(SupportedTypes.INVOICE));
         String extension = FileUtils.getExtension(file.getPath());
-        invoiceAttributes.put("EXTENSION", extension);
+        invoiceAttributes.put(Attributes.EXTENSION, extension);
 
         String fileContent = FileUtils.getFileContent(file);
 
-        //Todo do an agnostic single logic to parse things
-        invoiceAttributes.put("AMOUNT", parseInvoiceAmount(fileContent));
-        invoiceAttributes.put("PATIENT", parseInvoicePatient(fileContent));
+        invoiceAttributes.put(Attributes.AMOUNT, parseInvoiceAmount(fileContent));
+        invoiceAttributes.put(Attributes.PATIENT, parseInvoicePatient(fileContent));
         return new Document(invoiceAttributes);
     }
 

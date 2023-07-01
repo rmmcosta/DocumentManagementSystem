@@ -19,7 +19,7 @@ public class Parser {
     }
 
     private static String parseValueByIndex(String text, int startIndex, String endPattern) {
-        int endPatternIndex = text.indexOf(endPattern, startIndex);
+        int endPatternIndex = endPattern.isEmpty() ? text.length() : text.indexOf(endPattern, startIndex);
         return text.substring(startIndex, endPatternIndex)
                 .trim();
     }

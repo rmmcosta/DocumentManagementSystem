@@ -14,12 +14,12 @@ public class LetterImporter implements Importer {
     public Document importFile(final File file) throws IOException {
         Map<String, String> attributes = new HashMap<>();
 
-        attributes.put("EXTENSION", parseLetterExtension(file));
+        attributes.put(Attributes.EXTENSION, parseLetterExtension(file));
 
         String fileContent = FileUtils.getFileContent(file);
-        attributes.put("PATIENT", parseLetterPatient(fileContent));
-        attributes.put("ADDRESS", parseLetterAddress(fileContent));
-        attributes.put("BODY", parseLetterBody(fileContent));
+        attributes.put(Attributes.PATIENT, parseLetterPatient(fileContent));
+        attributes.put(Attributes.ADDRESS, parseLetterAddress(fileContent));
+        attributes.put(Attributes.BODY, parseLetterBody(fileContent));
 
         return new Document(attributes);
     }

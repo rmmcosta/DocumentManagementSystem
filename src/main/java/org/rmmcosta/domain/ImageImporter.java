@@ -16,12 +16,12 @@ public class ImageImporter implements Importer {
         if (!(FileUtils.validateExtension(file.getPath(), "jpg") || FileUtils.validateExtension(file.getPath(), "png"))) {
             throw new UnknownFileTypeException("No extension found for file:" + file.getPath());
         }
-        attributes.put("TYPE", String.valueOf(SupportedTypes.IMAGE));
+        attributes.put(Attributes.TYPE, String.valueOf(SupportedTypes.IMAGE));
         String extension = FileUtils.getExtension(file.getPath());
-        attributes.put("EXTENSION", extension);
+        attributes.put(Attributes.EXTENSION, extension);
         final BufferedImage image = ImageIO.read(file);
-        attributes.put("WIDTH", String.valueOf(image.getWidth()));
-        attributes.put("HEIGHT", String.valueOf(image.getHeight()));
+        attributes.put(Attributes.WIDTH, String.valueOf(image.getWidth()));
+        attributes.put(Attributes.HEIGHT, String.valueOf(image.getHeight()));
         return new Document(attributes);
     }
 }
